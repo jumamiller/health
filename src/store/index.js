@@ -21,13 +21,13 @@ export default new Vuex.Store({
   actions: {
     // save patient
     savePatient: ({commit},payload) => {
-      commit("MUTATE", {
-          'state' : "patient",
-          data:payload
-      });
       axios.post(`${BASE_API_URL}patients`, payload)
-          .then(()=>{
-            alert('You have successfully registered patient', payload.patientID)
+          .then((res)=>{
+            alert('You have successfully registered patient', res.message)
+              commit("MUTATE", {
+                  'state' : "patient",
+                  data:res.data
+              });
           })
           .catch(err=>{
             alert(err.message);
@@ -47,7 +47,8 @@ export default new Vuex.Store({
           })
     },
     // save vitals
-    saveVitals: (payload) => {
+    saveVitals: ({commit},payload) => {
+        console.log(commit);
       axios.post(`${BASE_API_URL}vitals`, payload)
           .then(()=>{
               alert('You have successfully added patient vitals')

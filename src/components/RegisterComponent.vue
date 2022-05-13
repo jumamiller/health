@@ -117,6 +117,7 @@
                   <v-text-field
                       label="Patient Name"
                       outlined
+                      readonly
                       :value="`${patientFormData.firstName+' '+ patientFormData.lastName}`"
                       dense
                   />
@@ -317,10 +318,11 @@ export default {
         gender: "",
       },
       vitalsFormData: {
+        patientID: "",
         visitDate: "",
-        height: "",
-        weight: "",
-        BMI: "",
+        height: null,
+        weight: null,
+        BMI: null,
       },
       visitFormData: {
         visitDate: "",
@@ -355,6 +357,11 @@ export default {
       ],
     }
   },
+  computed:{
+    patient(){
+      return this.$store.getters['patients']('patient')
+    }
+  },
   methods: {
     savePatient() {
       this.stepper = 2
@@ -362,6 +369,8 @@ export default {
     },
     saveVitals() {
       this.stepper = 3
+      this.vitalsFormData.patientID=this.patientFormData.patientID;
+      this.vitalsFormData.BMI=this.vitalsFormData.weight/this.vitalsFormData.height
       this.$store.dispatch('saveVitals', {...this.vitalsFormData})
     }
   }
