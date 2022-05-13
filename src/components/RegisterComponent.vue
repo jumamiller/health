@@ -44,6 +44,7 @@
                   <v-text-field
                       label="Patient Number"
                       outlined
+                      v-model="patientFormData.patientID"
                       dense
                   />
                 </v-col>
@@ -51,6 +52,7 @@
                   <v-text-field
                       type="date"
                       label="Registration Date"
+                      v-model="patientFormData.registrationDate"
                       outlined
                       dense
                   />
@@ -59,6 +61,7 @@
                   <v-text-field
                       label="First Name"
                       outlined
+                      v-model="patientFormData.firstName"
                       dense
                   />
                 </v-col>
@@ -66,6 +69,7 @@
                   <v-text-field
                       label="Last Name"
                       outlined
+                      v-model="patientFormData.lastName"
                       dense
                   />
                 </v-col>
@@ -74,6 +78,8 @@
                       label="Date of Birth"
                       outlined
                       dense
+                      type="date"
+                      v-model="patientFormData.dateOfBirth"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
@@ -81,6 +87,7 @@
                       outlined
                       dense
                       label="Gender"
+                      v-model="patientFormData.gender"
                       :items="gender"
                       :item-text="item=>item.value"
                       :item-value="item=>item.value"
@@ -92,7 +99,7 @@
 
           <v-btn
               color="primary"
-              @click="stepper = 2"
+              @click="savePatient"
           >
             Continue
           </v-btn>
@@ -338,6 +345,12 @@ export default {
       ],
     }
   },
+  methods: {
+    savePatient() {
+      this.stepper = 2
+      this.$store.dispatch('savePatient', {...this.patientFormData})
+    }
+  }
 }
 </script>
 

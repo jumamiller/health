@@ -4,7 +4,7 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-const BASE_API_URL='http://localhost:8080/';
+const BASE_API_URL='http://localhost:8000/api/v1/';
 export default new Vuex.Store({
   state: {
     patients: [],
@@ -19,10 +19,11 @@ export default new Vuex.Store({
   },
   actions: {
     // save patient
-    savePatient: (payload) => {
+    savePatient: ({commit},payload) => {
+        console.log(commit);
       axios.post(`${BASE_API_URL}patients`, payload)
-          .then(res=>{
-            alert(res.message)
+          .then(()=>{
+            alert('You have successfully registered patient', payload.patientID)
           })
           .catch(err=>{
             alert(err.message);
