@@ -38,7 +38,7 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <v-card flat>
-            <v-form ref="registration">
+            <v-form ref="registrationForm">
               <v-row>
                 <v-col cols="12" md="6">
                   <v-text-field
@@ -291,6 +291,28 @@ export default {
   name: "RegisterComponent",
   data () {
     return {
+      patientFormData:{
+        patientID: "",
+        registrationDate: "",
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        gender: "",
+      },
+      vitalsFormData: {
+        visitDate: "",
+        height: "",
+        weight: "",
+        BMI: "",
+      },
+      visitFormData: {
+        visitDate: "",
+        generalHealth: "",
+        isOnDietToLoseWeight: "",
+        isOnDrugs: "",
+        dietComments: "",
+        drugsComments: "",
+      },
       e1: 1,
       gender: [
         {"value":"Male"},
