@@ -259,7 +259,7 @@
                   <v-text-field
                       type="date"
                       label="Visit Date"
-                      outline
+                      outlined
                       v-model="visitFormData.drugsVisitDate"
                       dense
                   />
@@ -271,14 +271,17 @@
                         :label="val.value"
                         :value="val.value"
                         v-model="visitFormData.isOnDrugs"
-                        v-bind:key="index"
+                        v-bind:key="index+1"
                         v-for="(val, index) in health"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12" md="6">
                   <p>Are you currently taking any drugs?</p>
                   <v-radio-group>
-                    <v-radio v-model="visitFormData.drugsGeneralHealth"  :label="yes.value" :value="yes.value" v-bind:key="index" v-for="(yes, index) in yesOrNo"></v-radio>
+                    <v-radio
+                        v-model="visitFormData.drugsGeneralHealth"
+                        :label="yes.value" :value="yes.value"
+                        v-bind:key="index+2" v-for="(yes, index) in yesOrNo"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12">
