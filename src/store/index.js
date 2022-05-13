@@ -8,6 +8,7 @@ const BASE_API_URL='http://localhost:8000/api/v1/';
 export default new Vuex.Store({
   state: {
     patients: [],
+      patient: {},
   },
   mutations: {
     MUTATE: (state, payload) => {
@@ -20,7 +21,10 @@ export default new Vuex.Store({
   actions: {
     // save patient
     savePatient: ({commit},payload) => {
-        console.log(commit);
+      commit("MUTATE", {
+          'state' : "patient",
+          data:payload
+      });
       axios.post(`${BASE_API_URL}patients`, payload)
           .then(()=>{
             alert('You have successfully registered patient', payload.patientID)
@@ -45,8 +49,8 @@ export default new Vuex.Store({
     // save vitals
     saveVitals: (payload) => {
       axios.post(`${BASE_API_URL}vitals`, payload)
-          .then(res=>{
-            alert(res.message)
+          .then(()=>{
+              alert('You have successfully added patient vitals')
           })
           .catch(err=>{
             alert(err.message);

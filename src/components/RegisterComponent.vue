@@ -111,12 +111,13 @@
 
         <v-stepper-content step="2">
           <v-card flat>
-            <v-form ref="vitals">
+            <v-form ref="vitalsForm">
               <v-row>
                 <v-col cols="12" md="6">
                   <v-text-field
                       label="Patient Name"
                       outlined
+                      :value="`${patientFormData.firstName+' '+ patientFormData.lastName}`"
                       dense
                   />
                 </v-col>
@@ -125,6 +126,7 @@
                       type="date"
                       label="Visit Date"
                       outlined
+                      v-model="vitalsFormData.visitDate"
                       dense
                   />
                 </v-col>
@@ -132,6 +134,8 @@
                   <v-text-field
                       label="Height"
                       outlined
+                      type="number"
+                      v-model="vitalsFormData.height"
                       dense
                   />
                 </v-col>
@@ -139,6 +143,8 @@
                   <v-text-field
                       label="Weight"
                       outlined
+                      type="number"
+                      v-model="vitalsFormData.weight"
                       dense
                   />
                 </v-col>
@@ -146,6 +152,10 @@
                   <v-text-field
                       label="BMI"
                       outlined
+                      readonly
+                      type="number"
+                      :value="`${vitalsFormData.weight/vitalsFormData.height}`"
+                      v-model="vitalsFormData.BMI"
                       dense
                   />
                 </v-col>
@@ -155,7 +165,7 @@
 
           <v-btn
               color="primary"
-              @click="stepper = 3"
+              @click="saveVitals"
           >
             Continue
           </v-btn>
@@ -349,6 +359,10 @@ export default {
     savePatient() {
       this.stepper = 2
       this.$store.dispatch('savePatient', {...this.patientFormData})
+    },
+    saveVitals() {
+      this.stepper = 3
+      this.$store.dispatch('saveVitals', {...this.vitalsFormData})
     }
   }
 }
