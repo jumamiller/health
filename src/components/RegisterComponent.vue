@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-stepper v-model="e1">
+    <v-stepper v-model="stepper">
       <v-stepper-header>
         <v-stepper-step
-            :complete="e1 > 1"
+            :complete="stepper > 1"
             step="1"
         >
           Patient Registration
@@ -12,7 +12,7 @@
         <v-divider></v-divider>
 
         <v-stepper-step
-            :complete="e1 > 2"
+            :complete="stepper > 2"
             step="2"
         >
           Patient Vitals
@@ -20,12 +20,12 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="3" :complete="e1 > 3">
+        <v-stepper-step step="3" :complete="stepper > 3">
           Patient Vitals Form A
         </v-stepper-step>
         <v-divider/>
 
-        <v-stepper-step step="4" :complete="e1 > 4">
+        <v-stepper-step step="4" :complete="stepper > 4">
           Patient Vitals Form B
         </v-stepper-step>
         <v-divider/>
@@ -92,7 +92,7 @@
 
           <v-btn
               color="primary"
-              @click="e1 = 2"
+              @click="stepper = 2"
           >
             Continue
           </v-btn>
@@ -148,7 +148,7 @@
 
           <v-btn
               color="primary"
-              @click="e1 = 3"
+              @click="stepper = 3"
           >
             Continue
           </v-btn>
@@ -201,7 +201,7 @@
 
           <v-btn
               color="primary"
-              @click="e1 = 4"
+              @click="stepper = 4"
           >
             Continue
           </v-btn>
@@ -253,7 +253,7 @@
 
           <v-btn
               color="primary"
-              @click="e1 = 5"
+              @click="stepper = 5"
           >
             Continue
           </v-btn>
@@ -272,7 +272,7 @@
 
           <v-btn
               color="primary"
-              @click="e1 = 1"
+              @click="stepper = 1"
           >
             Continue
           </v-btn>
@@ -313,7 +313,7 @@ export default {
         dietComments: "",
         drugsComments: "",
       },
-      e1: 1,
+      stepper: 1,
       gender: [
         {"value":"Male"},
         {"value":"Female"},
