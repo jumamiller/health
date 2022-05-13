@@ -333,6 +333,11 @@
 <script>
 export default {
   name: "RegisterComponent",
+  beforeRouteEnter(to,from,next){
+    next((v) =>{
+      v.$store.dispatch('patients')
+    })
+  },
   data () {
     return {
       patientFormData:{
@@ -376,19 +381,18 @@ export default {
         {"value":"Poor"},
       ],
       headers: [
-        {text: 'Patient Name', value: 'name'},
-        {text: 'Age', value: 'age'},
-        {text: 'BMI Status', value: 'bmi'}
-      ],
-      patients: [
-        {name: 'Miller Juma',age: 23, bmi: 20},
-        {name: 'Miller Juma',age: 23, bmi: 20}
+        {text: 'Patient Name', value: 'first_name'},
+        {text: 'Age', value: 'patient_number'},
+        {text: 'BMI Status', value: 'gender'}
       ],
     }
   },
   computed:{
     patient(){
-      return this.$store.getters['patients']('patient')
+      return this.$store.getters['patientGetter']('patient')
+    },
+    patients(){
+      return this.$store.getters['patientGetter']('patients')
     }
   },
   methods: {
