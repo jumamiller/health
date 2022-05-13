@@ -285,6 +285,7 @@
                   <v-textarea
                       label="Comments"
                       outlined
+                      v-model="visitFormData.drugsComments"
                   />
                 </v-col>
               </v-row>
