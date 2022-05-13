@@ -184,6 +184,8 @@
                   <v-text-field
                       label="Patient Name"
                       outlined
+                      readonly
+                      :value="`${patientFormData.firstName+' '+ patientFormData.lastName}`"
                       dense
                   />
                 </v-col>
@@ -192,25 +194,37 @@
                       type="date"
                       label="Visit Date"
                       outlined
+                      v-model="visitFormData.dietVisitDate"
                       dense
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <p>General Health</p>
                   <v-radio-group>
-                    <v-radio :label="val.value" :value="val.value" v-bind:key="index" v-for="(val, index) in health"></v-radio>
+                    <v-radio
+                        :label="val.value"
+                        :value="val.value"
+                        v-model="visitFormData.dietGeneralHealth"
+                        v-bind:key="index"
+                        v-for="(val, index) in health"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12" md="6">
                   <p>Have you ever been on a diet to lose weight?</p>
                   <v-radio-group>
-                    <v-radio :label="yes.value" :value="yes.value" v-bind:key="index" v-for="(yes, index) in yesOrNo"></v-radio>
+                    <v-radio
+                        :label="yes.value"
+                        :value="yes.value"
+                        v-bind:key="index"
+                        v-model="visitFormData.isOnDietToLoseWeight"
+                        v-for="(yes, index) in yesOrNo"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12">
                   <v-textarea
                       label="Comments"
                       outlined
+                      v-model="visitFormData.dietComments"
                   />
                 </v-col>
               </v-row>
@@ -237,26 +251,34 @@
                       label="Patient Name"
                       outlined
                       dense
+                      readonly
+                      :value="`${patientFormData.firstName+' '+ patientFormData.lastName}`"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                       type="date"
                       label="Visit Date"
-                      outlined
+                      outline
+                      v-model="visitFormData.drugsVisitDate"
                       dense
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <p>General Health</p>
                   <v-radio-group>
-                    <v-radio :label="val.value" :value="val.value" v-bind:key="index" v-for="(val, index) in health"></v-radio>
+                    <v-radio
+                        :label="val.value"
+                        :value="val.value"
+                        v-model="visitFormData.isOnDrugs"
+                        v-bind:key="index"
+                        v-for="(val, index) in health"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12" md="6">
                   <p>Are you currently taking any drugs?</p>
                   <v-radio-group>
-                    <v-radio :label="yes.value" :value="yes.value" v-bind:key="index" v-for="(yes, index) in yesOrNo"></v-radio>
+                    <v-radio v-model="visitFormData.drugsGeneralHealth"  :label="yes.value" :value="yes.value" v-bind:key="index" v-for="(yes, index) in yesOrNo"></v-radio>
                   </v-radio-group>
                 </v-col>
                 <v-col cols="12">
@@ -271,7 +293,7 @@
 
           <v-btn
               color="primary"
-              @click="stepper = 5"
+              @click="saveVisits"
           >
             Continue
           </v-btn>
@@ -325,8 +347,11 @@ export default {
         BMI: null,
       },
       visitFormData: {
-        visitDate: "",
-        generalHealth: "",
+        patientID: "",
+        dietVisitDate: "",
+        drugsVisitDate: "",
+        dietGeneralHealth: "",
+        drugsGeneralHealth: "",
         isOnDietToLoseWeight: "",
         isOnDrugs: "",
         dietComments: "",
@@ -372,6 +397,11 @@ export default {
       this.vitalsFormData.patientID=this.patientFormData.patientID;
       this.vitalsFormData.BMI=this.vitalsFormData.weight/this.vitalsFormData.height
       this.$store.dispatch('saveVitals', {...this.vitalsFormData})
+    },
+    saveVisits() {
+      this.stepper = 5
+      this.visitFormData.patientID=this.patientFormData.patientID;
+      this.$store.dispatch('saveVisits', {...this.visitFormData})
     }
   }
 }

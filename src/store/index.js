@@ -58,7 +58,8 @@ export default new Vuex.Store({
           })
     },
     // save patient visits
-    saveVisitForms: (payload) => {
+    saveVisits: ({commit},payload) => {
+        console.log(commit);
       axios.post(`${BASE_API_URL}visits`, payload)
           .then(res=>{
             alert(res.message)
